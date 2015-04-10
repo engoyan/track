@@ -26,7 +26,7 @@ return [
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'mongodb',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -45,6 +45,15 @@ return [
 	*/
 
 	'connections' => [
+
+		'mongodb' => array(
+		    'driver'   => 'mongodb',
+		    'host'     => env('DB_HOST', 'localhost'),
+		    'port'     => env('DB_PORT', 27017),
+		    'database' => env('DB_DATABASE', 'chef'),
+		    'username' => env('DB_USERNAME', 'root'),
+		    'password' => env('DB_PASSWORD', ''),
+		),
 
 		'sqlite' => [
 			'driver'   => 'sqlite',
