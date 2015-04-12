@@ -24,7 +24,7 @@ class DeviceController extends Controller {
 	public function index()
 	{
 		$data = Data::orderBy('created_at', 'desc')
-					->take(10)
+					->take(Input::get('limit', 10))
 					->get();
 		return $data;
 	}
