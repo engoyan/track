@@ -3,6 +3,7 @@
 use App\Data;
 use App\Http\Requests\DeviceDataInRequest;
 use \Input;
+use \Validator;
 
 class DeviceController extends Controller {
 
@@ -17,17 +18,38 @@ class DeviceController extends Controller {
 	}
 
 	/**
-	 * Show the application dashboard to the user.
+	 * Get Device data in json format and store it.
 	 *
-	 * @return Response
+	 */
+	public function index()
+	{
+		$data = Data::orderBy('created_at', 'desc')
+					->take(10)
+					->get();
+		return $data;
+	}
+
+	/**
+	 * Get Device data in json format and store it.
+	 *
 	 */
 	public function in()
 	{
 		$data = Input::json();
 
-		$d = new Data($data->all());
-		$d->save();
-		return ['response' => 'success'];
+		$validator = Validator::make($data->all(), [
+			'device_id' => 'required|min:5', 
+			'temperature' => 'required|numeric', 
+			'level' => 'required|numeric',
+		]);
+
+		if($validator->passes()){
+			$d = new Data($data->all());
+			$d->save();
+			return ['response' => 'success!'];
+		}else{
+			return ['response' => 'error', 'errors' => $validator->errors()->all()];
+		}
 	}
 
 }

@@ -14,6 +14,7 @@
 Route::get('/', 'WelcomeController@index');
 
 Route::post('api/v1/device/in', ['as' => 'device-data-in', 'uses' => 'DeviceController@in']);
+Route::get('api/v1/device', 'DeviceController@index');
 
 // Route::controllers([
 // 	'auth' => 'Auth\AuthController',

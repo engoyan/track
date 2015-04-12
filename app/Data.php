@@ -12,4 +12,7 @@ class Data extends Eloquent {
 		'temperature', 
 		'level',
 	);
+    
+    protected $hidden = ['updated_at'];
+
 }
